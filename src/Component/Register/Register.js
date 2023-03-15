@@ -1,24 +1,24 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import {
   MDBContainer,
   MDBCol,
   MDBRow,
 }
 from 'mdb-react-ui-kit';
-import './Login.css'
+import './Register.css'
 import { useNavigate } from "react-router-dom"
 
-const Login=()=> {
+const Register=()=> {
   const[email,setEmail]=useState("")
   const[password,setPassword]=useState("")
+  const[name,setName]=useState("")
   const[errorEmail,setErrorEmail]=useState('')
   const[errorpassword,setErrorPassword]=useState('')
-
   const navigate = useNavigate()
   
 
- 
-const  emailValidation=()=>{
+  console.log(email,password)
+  const  emailValidation=()=>{
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(!email || regex.test(email) === false){
       setErrorEmail("Email its not valid")
@@ -56,20 +56,11 @@ const handleChangePassword = event => {
 
   setPassword(event.target.value);
 };
-
   const HandleSubmit=()=>{
-   
-   
-      if(email.length>0 && password.length>0 && emailValidation() && passwordValidation()){
-      navigate('/Home')
-      }
-      else{
-        navigate("/")
-      }
+   if(email.length>0 && password.length>0 && name.length>0)
+    navigate('/Home')
+      
     
-  }
-  const HandleRegister=()=>{
-    navigate('/register')
   }
 
   return (
@@ -85,18 +76,20 @@ const handleChangePassword = event => {
 
 
         <div className="login">
-      <span className="loginTitle">Login</span>
+      <span className="loginTitle">Register</span>
       <form className="loginForm">
+      <label>Name</label>
+        <input className="loginInput" type="text" placeholder="Enter your Name..." onChange={(e)=>setName(e.target.value)} />
         <label>Email</label>
         <input className="loginInput" type="text" placeholder="Enter your email..." onChange={handleChangeEmail} />
-       {errorEmail? <p className='errorMesssage'>{errorEmail}</p>:<></>}
+        {errorEmail? <p className='errorMesssage'>{errorEmail}</p>:<></>}
         <label>Password</label>
         <input className="loginInput" type="password" placeholder="Enter your password..."  onChange={handleChangePassword} />
         {errorpassword? <p className='errorMesssage'>{errorpassword}</p>:<></>}
     
-     <button className="loginButton" onClick={HandleSubmit}>Login</button>
+     <button className="loginButton" onClick={HandleSubmit}>SignUp</button>
       </form>
-        <button className="loginRegisterButton" onClick={HandleRegister}>Register</button>
+       
     </div>
 
         </MDBCol>
@@ -107,4 +100,4 @@ const handleChangePassword = event => {
   );
 }
 
-export default Login;
+export default Register;
